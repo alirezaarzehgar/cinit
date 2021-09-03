@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source projects.sh
-
 SAMPLES=samples
 
 function usage() {
