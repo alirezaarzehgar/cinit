@@ -10,3 +10,11 @@ function default() {
         echo "$1 already exists"
     fi
 }
+
+function udp-client-server() {
+    echo $1 TODO UDP
+}
+
+function tcp-client-server() {
+    echo $1 TODO TCP
+}
