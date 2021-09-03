@@ -68,6 +68,8 @@ main (int argc, char const *argv[])
                               &caddrLen);
         }
 
+      printf ("data : %s\n", buf);
+
       strcpy (buf, "Hello World from server\n");
 
       sendto (fd, buf, strlen (buf), 0, (struct sockaddr *)&caddr, caddrLen);
