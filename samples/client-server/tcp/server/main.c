@@ -36,6 +36,17 @@ main (int argc, char const *argv[])
       exit (EXIT_FAILURE);
     }
 
+  /* add options */
+  int enable = 1;
+
+  retval = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(enable));
+
+  if(retval == -1)
+  {
+    fprintf(stderr, "Couldn't add options\n");
+    exit(EXIT_FAILURE);
+  }
+
   /* binding */
   saddr.sin_family = AF_INET;
 
