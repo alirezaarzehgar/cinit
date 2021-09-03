@@ -79,7 +79,7 @@ main (int argc, char const *argv[])
           exit (EXIT_FAILURE);
         }
 
-      strcpy (buf, "Hello world\n");
+      strcpy (buf, "Hello world from server\n");
 
       write (newfd, buf, strlen (buf));
 
