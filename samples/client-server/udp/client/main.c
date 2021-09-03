@@ -21,6 +21,54 @@
 int
 main (int argc, char const *argv[])
 {
+  int fd;
+
+  struct sockaddr_in saddr, caddr;
+
+  socklen_t saddrLen;
+
+  int retval;
+
+  char buf[BUFSIZ];
+
+  /* create socket */
+  fd = socket (AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+
+  if (fd == -1)
+    {
+      fprintf (stderr, "Couldn't create socket\n");
+      exit (EXIT_FAILURE);
+    }
+
+  /* bind */
+  caddr.sin_family = AF_INET;
+
+  caddr.sin_port = 0;
+
+  caddr.sin_addr.s_addr = inet_addr (IP);
+
+  retval = bind (fd, (struct sockaddr *)&caddr, sizeof (caddr));
+
+  saddr.sin_family = AF_INET;
+
+  saddr.sin_port = htons (PORT);
+
+  saddr.sin_addr.s_addr = inet_addr (IP);
+
+  if (retval == -1)
+    {
+      fprintf (stderr, "Couldn't bind ip & port\n");
+      exit (EXIT_FAILURE);
+    }
+
+  /* connect */
+  strcpy (buf, "Hello World form client\n");
+
+  sendto (fd, buf, strlen (buf), 0, (struct sockaddr *)&saddr, sizeof (saddr));
+
+  recvfrom (fd, buf, BUFSIZ, 0, (struct sockaddr *)&saddr, &saddrLen);
+
+  printf ("data : %s\n", buf);
 
   return EXIT_SUCCESS;
 }
