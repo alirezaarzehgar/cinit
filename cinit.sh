@@ -1,9 +1,9 @@
 #!/bin/bash
 
-SAMPLES=samples
+SAMPLES=/opt/cinit/samples
 
 function usage() {
-    echo "$1 [--project|-p project-type]"
+    echo "$1 [--project|-p project-type project-name]"
     exit
 }
 
