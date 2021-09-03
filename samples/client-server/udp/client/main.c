@@ -47,13 +47,6 @@ main (int argc, char const *argv[])
 
   saddr.sin_addr.s_addr = inet_addr (IP);
 
-  if (retval == -1)
-    {
-      fprintf (stderr, "Couldn't bind ip & port\n");
-      exit (EXIT_FAILURE);
-    }
-
-  /* connect */
   strcpy (buf, "Hello World form client\n");
 
   sendto (fd, buf, strlen (buf), 0, (struct sockaddr *)&saddr, sizeof (saddr));
