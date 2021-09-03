@@ -23,7 +23,7 @@ main (int argc, char const *argv[])
 {
   int fd;
 
-  struct sockaddr_in saddr, caddr;
+  struct sockaddr_in saddr;
 
   socklen_t saddrLen;
 
@@ -40,15 +40,7 @@ main (int argc, char const *argv[])
       exit (EXIT_FAILURE);
     }
 
-  /* bind */
-  caddr.sin_family = AF_INET;
-
-  caddr.sin_port = 0;
-
-  caddr.sin_addr.s_addr = inet_addr (IP);
-
-  retval = bind (fd, (struct sockaddr *)&caddr, sizeof (caddr));
-
+  /* sendto/recvfrom */
   saddr.sin_family = AF_INET;
 
   saddr.sin_port = htons (PORT);
