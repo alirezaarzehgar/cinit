@@ -23,6 +23,8 @@ main (int argc, char const *argv[])
 {
   int fd;
 
+  int pid;
+
   struct sockaddr_in saddr;
 
   int retval;
@@ -39,13 +41,13 @@ main (int argc, char const *argv[])
   /* add options */
   int enable = 1;
 
-  retval = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(enable));
+  retval = setsockopt (fd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof (enable));
 
-  if(retval == -1)
-  {
-    fprintf(stderr, "Couldn't add options\n");
-    exit(EXIT_FAILURE);
-  }
+  if (retval == -1)
+    {
+      fprintf (stderr, "Couldn't add options\n");
+      exit (EXIT_FAILURE);
+    }
 
   /* binding */
   saddr.sin_family = AF_INET;
@@ -90,13 +92,20 @@ main (int argc, char const *argv[])
           exit (EXIT_FAILURE);
         }
 
-      strcpy (buf, "Hello world from server\n");
+      if ((pid = fork()) == 0)
+        {
+          strcpy (buf, "Hello world from server\n");
 
-      write (newfd, buf, strlen (buf));
+          write (newfd, buf, strlen (buf));
 
-      read (newfd, buf, BUFSIZ);
+          read (newfd, buf, BUFSIZ);
 
-      printf ("data: %s\n", buf);
+          printf ("data: %s\n", buf);
+
+          close (newfd);
+
+          exit (EXIT_SUCCESS);
+        }
 
       close (newfd);
     }
